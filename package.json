@@ -1,0 +1,28 @@
+{
+  "name": "netflix-service",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r dotenv/config ./server.js",
+    "debug": "nodemon --inspect -r dotenv/config ./server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-list-endpoints": "^4.0.1",
+    "express-validator": "^6.3.0",
+    "fs-extra": "^8.1.0",
+    "moment": "^2.24.0",
+    "multer": "^1.4.2",
+    "node-fetch": "^2.6.0",
+    "pdfmake": "^0.1.63"
+  }
+}
