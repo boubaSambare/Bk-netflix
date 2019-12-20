@@ -22,13 +22,16 @@ const corsOptions = {
 }
 
 server.use(express.json())
-server.use("/movies", cors(corsOptions), moviesRouter)
+server.use("/media", cors(corsOptions), moviesRouter)
 server.use("/reviews", cors(corsOptions), reviewsRouter)
-server.use("test", () => console.log('hello from test router'))
+server.get('/test', (req, res) => {
+    console.log('hello from test route')
+    res.status(200).send('hello from test route')
+})
 
 
 server.listen(PORT, () => {
-    console.log(`server running at port ${PORT} time stamp ${moment.formart('LLLL')}`)
+    console.log(`server running at port ${PORT} time stamp ${moment().format('LLLL')}`)
 })
 
-console.log(expressListEndpoint(server))
+console.log(listEndpoints(server))
