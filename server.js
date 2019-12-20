@@ -10,7 +10,7 @@ const server = express();
 
 const {PORT = 4000, NEW_URL} = process.env
 
-const whitelist = ['http://localhost:4000',NEW_URL]
+const whitelist = ['http://localhost:4000',NEW_URL,'http://localhost:3000']
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
