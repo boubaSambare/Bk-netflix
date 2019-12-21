@@ -3,6 +3,7 @@ const listEndpoints = require("express-list-endpoints");
 const cors = require('cors');
 const moviesRouter = require('./src/movies');
 const reviewsRouter = require('./src/reviews');
+const {join} = require('path')
 const moment = require('moment');
 require('dotenv').config();
 
@@ -20,6 +21,8 @@ const corsOptions = {
         }
     }
 }
+
+server.use("/images", express.static(join(__dirname, "./public/images")))
 
 server.use(express.json())
 server.use("/media", cors(corsOptions), moviesRouter)

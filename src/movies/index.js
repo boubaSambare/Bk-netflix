@@ -4,11 +4,13 @@ const {
 const {
     readFile,
     writeFile,
-    WriteStream
+    WriteStream,
+    ReadStream
 } = require("fs-extra");
 const multer = require('multer')
 const {
-    join
+    join,
+    extname
 } = require("path");
 const {
     check,
@@ -86,13 +88,13 @@ router.post("/",
         const allMovies = await getMovies();
         const checkMovies = allMovies.find(item => item.imdbID === req.params.id)
         if (!checkMovies) return res.status(500).send('media not found')
-        if (product)
+        if (checkMovies)
         {
-            const fileDestination = join(__dirname,"../../public/images/", req.params.id + path.extname(req.file.originalname))
-            await WriteStream(fileDestination ).pipe(req.file.buffer)
-            checkMovies.Poster = "/images/" + req.params.id + path.extname(req.file.originalname);
+            const fileDestination = join(__dirname,"../../public/images/", req.params.id + extname(req.file.originalname))
+            await writeFile(fileDestination ,req.file.buffer)
+            checkMovies.Poster = "/images/" + req.params.id + extname(req.file.originalname);
             const filterMovies = allMovies.filter(item => item.imdbID === req.body.id)
-            await writeProducts(moviesPath, [...filterMovies, checkMovies])
+            await writeFile(moviesPath,JSON.stringify( [...filterMovies, checkMovies]))
             res.send(checkMovies)
         }
         else
