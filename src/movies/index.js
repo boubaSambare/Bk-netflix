@@ -18,6 +18,8 @@ const {
     validationResult
 } = require("express-validator");
 
+const fetch = require('node-fetch');
+
 const moviesPath = join(__dirname, "./movies.json");
 
 const router = Router();
@@ -99,6 +101,15 @@ router.post("/",
         }
         else
             res.status(404).send("Not found")
+    })
+
+    router.get("/:id", async (req, res, next) => {
+        const allMovies = await getMovies();
+        const checkMovies = allMovies.find(item => item.imdbID === req.params.id)
+        if (!checkMovies) return res.status(500).send('media not found')
+        const getOmdbMovie = await fetch(`http://www.omdbapi.com/?apikey=17d07cb2&i=${req.params.id}`)
+        const resOmdbMovie = await getOmdbMovie.json()
+        res.status(200).send(resOmdbMovie)
     })
 
 module.exports = router
